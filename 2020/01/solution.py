@@ -7,29 +7,56 @@ numbers = []
 for x in numbersSTR:
     numbers.append( int(x) )
 
-def printSets(sets):
-    for i in sets:
-        return i
 
-def partOne(numbers):
-    result = 0
-    resultList = []
+def findTwoNumbers(listOfNumbers, sum, exceptIndex = -1):
 
-    for index1 in range(len(numbers)):
+    twoNumbers = []
 
-        pair = 2020 - numbers[index1]
+    for indexFirstNumber in range( len( listOfNumbers ) ):
 
-        for index2 in range(len(numbers)):
+        if exceptIndex == indexFirstNumber:
+            pass
+        else:
 
-            if index2 == index1:
-                continue
-            elif numbers[index2] == pair:
-                result = numbers[index1] * numbers[index2]
-                resultList.append(result)
+            pair = sum - listOfNumbers[indexFirstNumber]
 
-    finalResult = set(resultList)
-    print('Answer for part one is: {0}'.format(printSets(finalResult)))
+            for indexSecondNumber in range( len( listOfNumbers ) ):
 
-partOne(numbers)
+                if ( indexFirstNumber == indexSecondNumber ) or ( indexSecondNumber == exceptIndex ):
+                    pass
+                else:
+                    if listOfNumbers[indexSecondNumber] == pair:
+                        twoNumbers.append( listOfNumbers[ indexFirstNumber ] )
+                        twoNumbers.append( listOfNumbers[ indexSecondNumber ] )
+    
+    reduceTwoNumbers = list( set( twoNumbers ) )
+    
+    if len( reduceTwoNumbers ) == 2:
+        return reduceTwoNumbers[0] * reduceTwoNumbers[1]
+    else:
+        return 0
 
 
+def findThreeNumbers(listOfNumbers, sum):
+
+    listOfResult = []
+
+    for index in range( len( listOfNumbers ) ):
+
+        sumForAnotherTwo = sum - listOfNumbers[index]
+        anotherTwoMultiplied = findTwoNumbers(listOfNumbers, sumForAnotherTwo, index)
+
+        if anotherTwoMultiplied == 0:
+            pass
+        else:
+            listOfResult.append(anotherTwoMultiplied * listOfNumbers[index])
+    
+    result = list ( set ( listOfResult ) )
+    
+    if len( result ) == 1:
+        return result[0]
+    else:
+        return 0
+
+print( 'Part one: {0}'.format( findTwoNumbers(numbers, 2020) ) )
+print( 'Part two: {0}'.format( findThreeNumbers(numbers, 2020) ) )
