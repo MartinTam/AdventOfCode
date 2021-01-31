@@ -3,3 +3,8 @@ Advent of Code is an Advent calendar of small programming puzzles for a variety 
 
 # My solutions
 Here are my solutions for some puzzles, that I solved. They're definitely not the best solutions, but I tried my best. I swear!
+
+# License
+
+The code is available under the [MIT](https://github.com/MartinTam/AdventOfCode/blob/main/LICENSE) license.
+
