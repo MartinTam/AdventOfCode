@@ -7,5 +7,12 @@ lines = []
 for x in line:
     lines.append(x)
 
-for i in lines:
-    print(i)
+def createListOfTuples(lines):
+
+    for x in lines:
+        
+        for i in range(len(x)):
+            if x[i] != '-':
+
+
+createListOfTuples(lines)
