@@ -16,7 +16,7 @@ def digitsIntoOneNumber(listOfDigigt):
         number = listOfDigigt[0]
     return number
 
-def checkCorrectPassword(oneLineTuple):
+def checkCorrectPasswordOne(oneLineTuple):
     minimum = oneLineTuple[0]
     maximum = oneLineTuple[1]
     letter = oneLineTuple[2]
@@ -33,11 +33,22 @@ def checkCorrectPassword(oneLineTuple):
     
     return correctPassword
 
+def checkCorrectPasswordTwo(oneLineTuple):
+    position1 = oneLineTuple[0] - 1 
+    position2 = oneLineTuple[1] - 1
+    letter = oneLineTuple[2]
+    password = oneLineTuple[3]
+    correctPassword = False
 
-def countCorrectPassword(lines):
+    if (password[position1] == letter and password[position2] != letter) or (password[position1] != letter and password[position2] == letter):
+        correctPassword = True
 
-    listOfTuples = []
-    correct = 0
+    return correctPassword 
+
+def countCorrectPassword(lines, part):
+
+    answerToPartOne = 0
+    answerToPartTwo = 0
 
     for x in lines:
         firstNumber = []
@@ -68,9 +79,19 @@ def countCorrectPassword(lines):
 	
         oneLineTuple = (digitsIntoOneNumber( [int(x) for x in firstNumber] ), digitsIntoOneNumber( [int(x) for x in secondNumber] ), [str(x) for x in letter][0], [str(x) for x in password])
         
-        if checkCorrectPassword(oneLineTuple):
-            correct += 1
+        if checkCorrectPasswordOne(oneLineTuple) and part == 1:
+            answerToPartOne += 1
+        
+        if checkCorrectPasswordTwo(oneLineTuple) and part == 2:
+            answerToPartTwo += 1
     
-    return correct
+    if part == 1:
+        return answerToPartOne
+    
+    if part == 2:
+        return answerToPartTwo
 
-print(f"Part 1: ",countCorrectPassword(lines))
+    return 0
+
+print(f"Part 1: ",countCorrectPassword(lines, 1))
+print(f"Part 2: ",countCorrectPassword(lines, 2))
